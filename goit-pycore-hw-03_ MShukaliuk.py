@@ -97,21 +97,24 @@ users = [
     {"name": "John Smith", "birthday": "1990.03.10"}
 ]
 
-today = datetime.today().date()
-today_day_of_week = today.weekday() 
-today_week_ahead = today + timedelta(days = 7)
-bd_list=[]
+def get_birthdays_per_week(dictionary):
+  today = datetime.today().date()
+  today_day_of_week = today.weekday() 
+  today_week_ahead = today + timedelta(days = 7)
+  bd_list=[]
 
-for user in users:
-  birthday = datetime.strptime(user["birthday"],"%Y.%m.%d").date()
-  birthday_date_this_year = birthday.replace(year=today.year)
-  birthday_date_this_year_week_ahead = birthday_date_this_year+timedelta(days=7)
-  birthday_date_this_year_day_of_week = birthday_date_this_year.weekday()
+  for user in users:
+    birthday = datetime.strptime(user["birthday"],"%Y.%m.%d").date()
+    birthday_date_this_year = birthday.replace(year=today.year)
+    birthday_date_this_year_week_ahead = birthday_date_this_year+timedelta(days=7)
+    birthday_date_this_year_day_of_week = birthday_date_this_year.weekday()
 
-  if birthday_date_this_year >= today and birthday_date_this_year <= today_week_ahead:
-    bd_list.append(user["name"])
-  
-  if (today_day_of_week == 0) and (birthday_date_this_year >= (today - timedelta(days = 2)) and birthday_date_this_year <= (today - timedelta(days = 1))):
-    bd_list.append(user["name"])
-  
-print(bd_list)
+    if birthday_date_this_year >= today and birthday_date_this_year <= today_week_ahead:
+      bd_list.append(user["name"])
+    
+    if (today_day_of_week == 0) and (birthday_date_this_year >= (today - timedelta(days = 2)) and birthday_date_this_year <= (today - timedelta(days = 1))):
+      bd_list.append(user["name"])
+    
+  print(bd_list)
+
+get_birthdays_per_week(users) 
